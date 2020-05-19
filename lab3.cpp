@@ -152,7 +152,7 @@ DWORD WINAPI thread_a(LPVOID)
 	}
 
 	//0й интервал
-	for (int i = 0; i < 3; i++) { sem_post(semA); }
+	for (int i = 0; i < 4; i++) { sem_post(semA); }
 	return 0;
 }
 
@@ -161,8 +161,8 @@ DWORD WINAPI thread_b(LPVOID)
 	//на 0м интервале 
 	for (int i = 0; i < 3; i++) { print_char('b'); computation(); }
 
-	for (int i = 0; i < 3; i++) { sem_post(semB); }
-
+	for (int i = 0; i < 4; i++) { sem_post(semB); }
+	interval_0_wait();
 	//1й интервал
 	for (int i = 0; i < 3; i++) { print_char('b'); computation(); }
 
