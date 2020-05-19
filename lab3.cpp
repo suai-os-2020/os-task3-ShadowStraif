@@ -110,8 +110,9 @@ void sem_post(HANDLE s)
 
 void interval_0_wait() //ab
 {
-	sem_wait(semB);
 	sem_wait(semA);
+	sem_wait(semB);
+	
 }
 
 void interval_1_wait() //bcde
@@ -151,7 +152,7 @@ DWORD WINAPI thread_a(LPVOID)
 	}
 
 	//0й интервал
-	for (int i = 0; i < 4; i++) { sem_post(semA); }
+	for (int i = 0; i < 3; i++) { sem_post(semA); }
 	return 0;
 }
 
@@ -160,7 +161,7 @@ DWORD WINAPI thread_b(LPVOID)
 	//на 0м интервале 
 	for (int i = 0; i < 3; i++) { print_char('b'); computation(); }
 
-	for (int i = 0; i < 4; i++) { sem_post(semB); }
+	for (int i = 0; i < 3; i++) { sem_post(semB); }
 
 	//1й интервал
 	for (int i = 0; i < 3; i++) { print_char('b'); computation(); }
@@ -172,6 +173,7 @@ DWORD WINAPI thread_b(LPVOID)
 
 DWORD WINAPI thread_c(LPVOID)
 {
+
 	interval_0_wait(); //ждем 0й интервал 
 
 	for (int i = 0; i < 3; i++) { print_char('c'); computation(); }
